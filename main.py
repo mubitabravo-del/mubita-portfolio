@@ -1,12 +1,13 @@
 """
 Web Portfolio - Computer Programming I (Semester 1, 2026)
-Flet 0.85 compatible — with animations & styling polish
+Flet compatible — with animations & styling polish
 """
 
 import flet as ft
 import flet_video as fv
 import threading
 import time
+import os
 
 # ── Design Tokens ────────────────────────────────────────────────────────────
 BG      = "#08090D"
@@ -24,7 +25,12 @@ PURPLE  = "#B57BFF"
 BLUE    = "#4D9FFF"
 
 def wo(opacity, color):
-    return ft.Colors.with_opacity(opacity, color)
+    """Apply opacity to a hex color - works with all Flet versions"""
+    hex_color = color.lstrip('#')
+    r = int(hex_color[0:2], 16)
+    g = int(hex_color[2:4], 16)
+    b = int(hex_color[4:6], 16)
+    return f"rgba({r}, {g}, {b}, {opacity})"
 
 # ── Reusable widgets ──────────────────────────────────────────────────────────
 
@@ -1027,4 +1033,6 @@ def main(page: ft.Page):
 
 
 if __name__ == "__main__":
-    ft.app(target=main, assets_dir="assets")
+    # Get port from environment variable for Render.com deployment
+    port = int(os.environ.get("PORT", 8080))
+    ft.app(target=main, assets_dir="assets", port=port)
