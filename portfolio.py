@@ -1,10 +1,10 @@
-
 """
 Web Portfolio - Computer Programming I (Semester 1, 2026)
-Flet 0.84 compatible — with animations & styling polish
+Flet 0.85 compatible — with animations & styling polish
 """
 
 import flet as ft
+import flet_video as fv
 import threading
 import time
 
@@ -180,7 +180,6 @@ def home_page(page=None):
         ),
     ], width=80, height=80)
 
-    # pulse the ring
     def pulse_ring():
         while True:
             time.sleep(1.8)
@@ -236,7 +235,6 @@ def home_page(page=None):
         padding=ft.Padding.symmetric(vertical=24, horizontal=20),
     )
 
-    # ── Skills grid with staggered reveal ─────────────────────────────────
     skill_cards = []
     for i, (name, color, detail) in enumerate(SKILLS):
         sc = ft.Container(
@@ -271,7 +269,6 @@ def home_page(page=None):
         ft.Row([skill_cards[4], skill_cards[5]], spacing=8),
     ], spacing=8)
 
-    # ── Project highlights with staggered reveal ───────────────────────────
     highlight_rows = []
     for i, (icon, title, desc, color) in enumerate(HIGHLIGHTS):
         h = ft.Container(
@@ -318,36 +315,16 @@ def home_page(page=None):
 # ── TIMELINE PAGE ─────────────────────────────────────────────────────────────
 
 TIMELINE_DATA = [
-    (1,  "Project Kickoff",
-     "Set up GitHub repository, created personal branch, attended team planning meeting, agreed on folder structure and naming conventions.",
-     ["Git Setup", "Team Planning"], ACCENT),
-    (2,  "Requirements Analysis",
-     "Analysed mechanical engineering module specifications. Drafted class diagrams and data models for the Beam stress analysis sub-module.",
-     ["Analysis", "Documentation"], BLUE),
-    (3,  "UI Scaffolding",
-     "Built base navigation component and colour theme in Flet. Established responsive layout skeleton shared across all team members.",
-     ["Flet", "UI Design"], ACCENT),
-    (4,  "Stress Calculator",
-     "Implemented the σ = F/A stress calculator widget with input validation, unit conversion (N→kN, m²→mm²), and live result display.",
-     ["Python", "Math"], ACCENT2),
-    (5,  "MATLAB Courses 1–3",
-     "Completed MATLAB Onramp, Signal Processing Onramp, and Machine Learning Onramp on MathWorks Learning Center. Screenshots archived.",
-     ["MATLAB", "Learning"], SUCCESS),
-    (6,  "Data Visualisation",
-     "Integrated matplotlib for force-displacement graphs. Charts rendered inside Flet via ft.Image from in-memory PNG buffers.",
-     ["Charts", "Integration"], ACCENT3),
-    (7,  "Code Review Sprint",
-     "Reviewed 3 pull requests from teammates, left inline comments, and fixed the unit-conversion bug (N·m → kN·m) in the torque module.",
-     ["Code Review", "Bug Fix"], WARN),
-    (8,  "MATLAB Courses 4–6",
-     "Completed Deep Learning Onramp, Image Processing Onramp, and Statistics & Machine Learning Onramp. Progress: 6/8.",
-     ["MATLAB", "Learning"], SUCCESS),
-    (9,  "Technical Blog Posts",
-     "Wrote three technical blog posts covering OOP, recursion, and event-driven programming, each with embedded YouTube video references.",
-     ["Documentation", "Blog"], PURPLE),
-    (10, "Testing & Deployment",
-     "Wrote pytest unit tests for stress functions, resolved edge cases, and deployed the portfolio as a live web app on port 8080.",
-     ["Testing", "Deployment"], ACCENT),
+    (1,  "Project Kickoff", "Set up GitHub repository, created personal branch, attended team planning meeting, agreed on folder structure and naming conventions.", ["Git Setup", "Team Planning"], ACCENT),
+    (2,  "Requirements Analysis", "Analysed mechanical engineering module specifications. Drafted class diagrams and data models for the Beam stress analysis sub-module.", ["Analysis", "Documentation"], BLUE),
+    (3,  "UI Scaffolding", "Built base navigation component and colour theme in Flet. Established responsive layout skeleton shared across all team members.", ["Flet", "UI Design"], ACCENT),
+    (4,  "Stress Calculator", "Implemented the σ = F/A stress calculator widget with input validation, unit conversion (N→kN, m²→mm²), and live result display.", ["Python", "Math"], ACCENT2),
+    (5,  "MATLAB Courses 1–3", "Completed MATLAB Onramp, Signal Processing Onramp, and Machine Learning Onramp on MathWorks Learning Center. Screenshots archived.", ["MATLAB", "Learning"], SUCCESS),
+    (6,  "Data Visualisation", "Integrated matplotlib for force-displacement graphs. Charts rendered inside Flet via ft.Image from in-memory PNG buffers.", ["Charts", "Integration"], ACCENT3),
+    (7,  "Code Review Sprint", "Reviewed 3 pull requests from teammates, left inline comments, and fixed the unit-conversion bug (N·m → kN·m) in the torque module.", ["Code Review", "Bug Fix"], WARN),
+    (8,  "MATLAB Courses 4–6", "Completed Deep Learning Onramp, Image Processing Onramp, and Statistics & Machine Learning Onramp. Progress: 6/8.", ["MATLAB", "Learning"], SUCCESS),
+    (9,  "Technical Blog Posts", "Wrote three technical blog posts covering OOP, recursion, and event-driven programming, each with an embedded demo video.", ["Documentation", "Blog"], PURPLE),
+    (10, "Testing & Deployment", "Wrote pytest unit tests for stress functions, resolved edge cases, and deployed the portfolio as a live web app on port 8080.", ["Testing", "Deployment"], ACCENT),
 ]
 
 def timeline_page(page=None):
@@ -415,7 +392,6 @@ def matlab_page(open_lightbox=None, page=None):
     done_count = sum(1 for _, done, *_ in MATLAB_COURSES if done)
     pct = int(done_count / 8 * 100)
 
-    # Animated progress bar
     progress_fill = ft.Container(
         expand=0, height=8, bgcolor=SUCCESS,
         border_radius=ft.BorderRadius.only(top_left=4, bottom_left=4,
@@ -567,6 +543,8 @@ def matlab_page(open_lightbox=None, page=None):
 
 # ── BLOG PAGE ─────────────────────────────────────────────────────────────────
 
+DEMO_VIDEO_SRC = "video/video_2026-06-15_14-52-22.mp4"
+
 BLOG_POSTS = [
     {
         "title": "Object-Oriented Programming in Engineering Apps",
@@ -582,7 +560,7 @@ BLOG_POSTS = [
              "formula": "class Beam:\n    def __init__(self, force, area):\n        self.F = force   # N\n        self.A = area    # m²\n\n    def normal_stress(self):\n        return self.F / self.A  # Pa"},
             {"body": "Encapsulating F and A inside the class means multi-beam simulations are clean and scalable: create a list of Beam objects, call normal_stress() on each, and collect results — no global variables, no naming collisions."},
         ],
-        "video": "⚠️  REPLACE — paste your YouTube link here",
+        "show_video": True,
     },
     {
         "title": "Recursion & Iterative Algorithms",
@@ -596,7 +574,7 @@ BLOG_POSTS = [
              "formula": "def bom_cost(node):\n    if node['type'] == 'part':\n        return node['qty'] * node['price']\n    return sum(bom_cost(child)\n               for child in node['children'])\n           + node.get('overhead', 0)"},
             {"body": "The recursive approach mirrors the BOM tree structure exactly — no manual stack management is required. The base case terminates the descent, and the call-stack naturally unwinds to accumulate costs up to the root assembly."},
         ],
-        "video": "⚠️  REPLACE — paste your YouTube link here",
+        "show_video": True,
     },
     {
         "title": "Event-Driven Programming with Flet",
@@ -609,9 +587,74 @@ BLOG_POSTS = [
             {"heading": "Why page.update()?",
              "body": "Flet batches UI changes for performance. Calling page.update() commits all pending control changes to the browser in a single diff, ensuring the result label appears instantly after the user taps the button — even across a network when deployed as a web app."},
         ],
-        "video": "⚠️  REPLACE — paste your YouTube link here",
+        "show_video": True,
     },
 ]
+
+def build_video_player(color):
+    try:
+        player = fv.Video(
+            playlist=[fv.VideoMedia(DEMO_VIDEO_SRC)],
+            playlist_mode=fv.PlaylistMode.NONE,
+            fill_color=BG,
+            aspect_ratio=16 / 9,
+            volume=100,
+            autoplay=False,
+            muted=False,
+            show_controls=True,
+            width=float("inf"),
+        )
+        video_widget = ft.Container(
+            content=player,
+            border_radius=ft.BorderRadius.all(8),
+            clip_behavior=ft.ClipBehavior.HARD_EDGE,
+            bgcolor=BG,
+        )
+    except Exception as e:
+        # Fallback
+        video_widget = ft.Container(
+            content=ft.Column([
+                ft.Text("▶", size=36, color=color, text_align=ft.TextAlign.CENTER),
+                ft.Text(
+                    f"Video player requires 'flet-video' package\nFile: assets/{DEMO_VIDEO_SRC}\n\nError: {str(e)[:100]}",
+                    size=11, color=MUTED, text_align=ft.TextAlign.CENTER,
+                ),
+            ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=8),
+            width=float("inf"), height=180,
+            bgcolor=wo(0.08, color),
+            border_radius=ft.BorderRadius.all(8),
+            alignment=ft.Alignment(0, 0),
+        )
+
+    return ft.Container(
+        content=ft.Column([
+            ft.Row([
+                ft.Container(
+                    content=ft.Text("▶", size=10, color=color,
+                                    weight=ft.FontWeight.W_700, font_family="monospace"),
+                    bgcolor=wo(0.14, color),
+                    border_radius=ft.BorderRadius.all(4),
+                    padding=ft.Padding.symmetric(horizontal=8, vertical=3),
+                    border=ft.Border.all(1, wo(0.4, color)),
+                ),
+                ft.Text(" Demo Video", size=12, color=TEXT, weight=ft.FontWeight.W_600),
+                ft.Container(expand=True),
+                ft.Text("portfolio demo", size=9, color=MUTED),
+            ], spacing=6),
+            ft.Container(height=10),
+            video_widget,
+            ft.Container(height=6),
+            ft.Text(
+                "▲ Use the player controls to play, pause, seek, and adjust volume.",
+                size=9, color=wo(0.5, MUTED),
+            ),
+        ], spacing=0),
+        bgcolor=wo(0.05, color),
+        border=ft.Border.all(1, wo(0.25, color)),
+        border_radius=ft.BorderRadius.all(8),
+        padding=ft.Padding.symmetric(horizontal=12, vertical=12),
+    )
+
 
 def blog_page(page=None):
     posts = []
@@ -620,11 +663,22 @@ def blog_page(page=None):
         section_widgets = []
         for sec in p["sections"]:
             if "heading" in sec:
-                section_widgets.append(ft.Text(sec["heading"], size=12, color=color, weight=ft.FontWeight.W_700))
+                section_widgets.append(
+                    ft.Text(sec["heading"], size=12, color=color, weight=ft.FontWeight.W_700)
+                )
             if "body" in sec:
-                section_widgets.append(ft.Text(sec["body"], size=12, color=wo(0.85, TEXT)))
+                section_widgets.append(
+                    ft.Text(sec["body"], size=12, color=wo(0.85, TEXT))
+                )
             if "formula" in sec:
                 section_widgets.append(mono_box(sec["formula"]))
+
+        video_block = ft.Column([], spacing=0)
+        if p.get("show_video"):
+            video_block = ft.Column([
+                divider(),
+                build_video_player(color),
+            ], spacing=0)
 
         post = card(ft.Column([
             ft.Row([
@@ -640,25 +694,14 @@ def blog_page(page=None):
             ft.Text(p["title"], size=15, color=TEXT, weight=ft.FontWeight.BOLD),
             divider(),
             ft.Column(section_widgets, spacing=8),
-            divider(),
-            ft.Container(
-                content=ft.Row([
-                    ft.Text("▶ ", size=12, color=color),
-                    ft.Text("Video Reference: ", size=11, color=MUTED),
-                    ft.Text(p["video"], size=10, color=ACCENT, selectable=True, expand=True),
-                ]),
-                bgcolor=wo(0.06, color),
-                border_radius=ft.BorderRadius.all(6),
-                padding=ft.Padding.symmetric(horizontal=10, vertical=8),
-                border=ft.Border.all(1, wo(0.2, color)),
-            ),
+            video_block,
         ], spacing=6), accent_top=color)
         posts.append(fade_slide_in(post, delay_ms=i * 120, page=page))
 
     return ft.Column([
         ft.Container(height=20),
         section_title("✍️", "Technical Blog",
-                      "Confidence in Concepts — written explanations with mathematical notation"),
+                      "Confidence in Concepts — written explanations with mathematical notation & live demo"),
         ft.Column(posts, spacing=16),
         ft.Container(height=30),
     ], scroll=ft.ScrollMode.AUTO, spacing=0, horizontal_alignment=ft.CrossAxisAlignment.START)
@@ -924,14 +967,6 @@ def main(page: ft.Page):
         padding=ft.Padding.symmetric(vertical=6, horizontal=10),
     )
 
-    # animated nav indicator dot
-    nav_dot = ft.Container(
-        width=4, height=4,
-        bgcolor=ACCENT,
-        border_radius=ft.BorderRadius.all(2),
-        animate=ft.Animation(300, ft.AnimationCurve.EASE_OUT),
-    )
-
     def navigate(name):
         nav_items = []
         for icon, n in NAV_PAGES:
@@ -964,7 +999,6 @@ def main(page: ft.Page):
             )
         nav_row.controls = nav_items
 
-        # fade out old content
         content_col.opacity = 0
         content_col.animate_opacity = ft.Animation(120, ft.AnimationCurve.EASE_IN)
         page.update()
@@ -976,7 +1010,6 @@ def main(page: ft.Page):
         else:
             content_col.controls = [page_widget]
 
-        # fade in new content
         content_col.opacity = 1
         content_col.animate_opacity = ft.Animation(300, ft.AnimationCurve.EASE_OUT)
         page.update()
@@ -993,4 +1026,5 @@ def main(page: ft.Page):
     navigate("Home")
 
 
-ft.run(main, view=ft.AppView.WEB_BROWSER, port=8080, assets_dir="assets")
+if __name__ == "__main__":
+    ft.app(target=main, assets_dir="assets")
