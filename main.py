@@ -48,7 +48,7 @@ def chip(text, color=ACCENT):
                         font_family="monospace"),
         bgcolor=wo(0.12, color),
         border=ft.Border.all(1, wo(0.4, color)),
-        border_radius=ft.BorderRadius.all(4),
+        border_radius=ft.border_radius.all(4),
         padding=ft.Padding.symmetric(horizontal=8, vertical=3),
         animate=ft.Animation(200, ft.AnimationCurve.EASE_OUT),
     )
@@ -59,7 +59,7 @@ def divider():
 def card(content, pad=16, border_color=BORDER, accent_top=None):
     top_accent = ft.Container(
         height=3, bgcolor=accent_top,
-        border_radius=ft.BorderRadius.only(top_left=10, top_right=10),
+        border_radius=ft.border_radius.only(top_left=10, top_right=10),
     ) if accent_top else ft.Container(height=0)
     return ft.Container(
         content=ft.Column([
@@ -67,7 +67,7 @@ def card(content, pad=16, border_color=BORDER, accent_top=None):
             ft.Container(content=content, padding=ft.Padding.all(pad)),
         ], spacing=0),
         bgcolor=CARD,
-        border_radius=ft.BorderRadius.all(10),
+        border_radius=ft.border_radius.all(10),
         border=ft.Border.all(1, border_color),
         clip_behavior=ft.ClipBehavior.HARD_EDGE,
         animate=ft.Animation(300, ft.AnimationCurve.EASE_OUT),
@@ -80,7 +80,7 @@ def section_title(icon, title, subtitle=None):
                 content=ft.Text(icon, size=20),
                 width=42, height=42,
                 bgcolor=wo(0.12, ACCENT),
-                border_radius=ft.BorderRadius.all(10),
+                border_radius=ft.border_radius.all(10),
                 alignment=ft.Alignment(0, 0),
                 animate=ft.Animation(400, ft.AnimationCurve.BOUNCE_OUT),
             ),
@@ -91,7 +91,7 @@ def section_title(icon, title, subtitle=None):
         ], spacing=12),
         ft.Container(
             height=2, bgcolor=wo(0.25, ACCENT),
-            border_radius=ft.BorderRadius.all(1),
+            border_radius=ft.border_radius.all(1),
             margin=ft.Margin.only(top=10, bottom=16),
             animate=ft.Animation(600, ft.AnimationCurve.EASE_OUT),
         ),
@@ -102,7 +102,7 @@ def mono_box(text):
         content=ft.Text(text, size=12, color=ACCENT3, font_family="monospace"),
         bgcolor=wo(0.07, ACCENT3),
         border=ft.Border(left=ft.BorderSide(3, ACCENT3)),
-        border_radius=ft.BorderRadius.only(top_right=6, bottom_right=6),
+        border_radius=ft.border_radius.only(top_right=6, bottom_right=6),
         padding=ft.Padding.symmetric(horizontal=14, vertical=10),
         margin=ft.Margin.symmetric(vertical=6),
     )
@@ -138,7 +138,7 @@ def build_topbar():
                 content=ft.Text("< CP1 />", size=13, color=ACCENT,
                                 weight=ft.FontWeight.BOLD, font_family="monospace"),
                 bgcolor=wo(0.1, ACCENT),
-                border_radius=ft.BorderRadius.all(6),
+                border_radius=ft.border_radius.all(6),
                 padding=ft.Padding.symmetric(horizontal=10, vertical=5),
                 border=ft.Border.all(1, wo(0.3, ACCENT)),
             ),
@@ -177,7 +177,7 @@ def home_page(page=None):
     # ── Animated avatar with pulsing ring ─────────────────────────────────
     ring = ft.Container(
         width=80, height=80,
-        border_radius=ft.BorderRadius.all(40),
+        border_radius=ft.border_radius.all(40),
         border=ft.Border.all(2, wo(0.6, ACCENT)),
         animate=ft.Animation(1500, ft.AnimationCurve.EASE_IN_OUT),
     )
@@ -188,7 +188,7 @@ def home_page(page=None):
                             font_family="monospace"),
             width=64, height=64,
             bgcolor=ACCENT,
-            border_radius=ft.BorderRadius.all(32),
+            border_radius=ft.border_radius.all(32),
             alignment=ft.Alignment(0, 0),
             left=8, top=8,
         ),
@@ -211,7 +211,7 @@ def home_page(page=None):
                             size=8, color=ACCENT, weight=ft.FontWeight.W_700,
                             font_family="monospace"),
             bgcolor=wo(0.1, ACCENT),
-            border_radius=ft.BorderRadius.all(4),
+            border_radius=ft.border_radius.all(4),
             padding=ft.Padding.symmetric(horizontal=8, vertical=3),
         ),
         ft.Container(height=10),
@@ -239,13 +239,13 @@ def home_page(page=None):
                 ),
                 bgcolor=wo(0.04, ACCENT),
                 border=ft.Border(left=ft.BorderSide(3, wo(0.5, ACCENT))),
-                border_radius=ft.BorderRadius.only(top_right=8, bottom_right=8),
+                border_radius=ft.border_radius.only(top_right=8, bottom_right=8),
                 padding=ft.Padding.symmetric(horizontal=14, vertical=12),
             ),
         ], horizontal_alignment=ft.CrossAxisAlignment.START),
         bgcolor=wo(0.03, ACCENT),
         border=ft.Border.all(1, wo(0.15, ACCENT)),
-        border_radius=ft.BorderRadius.all(14),
+        border_radius=ft.border_radius.all(14),
         padding=ft.Padding.symmetric(vertical=24, horizontal=20),
     )
 
@@ -258,7 +258,7 @@ def home_page(page=None):
                                     weight=ft.FontWeight.BOLD, font_family="monospace"),
                     width=34, height=34,
                     bgcolor=wo(0.14, color),
-                    border_radius=ft.BorderRadius.all(8),
+                    border_radius=ft.border_radius.all(8),
                     alignment=ft.Alignment(0, 0),
                 ),
                 ft.Container(height=8),
@@ -267,7 +267,7 @@ def home_page(page=None):
             ], spacing=2),
             bgcolor=CARD,
             border=ft.Border.all(1, wo(0.25, color)),
-            border_radius=ft.BorderRadius.all(10),
+            border_radius=ft.border_radius.all(10),
             padding=ft.Padding.all(12),
             expand=True,
             animate=ft.Animation(300, ft.AnimationCurve.EASE_OUT),
@@ -291,7 +291,7 @@ def home_page(page=None):
                     content=ft.Text(icon, size=16),
                     width=38, height=38,
                     bgcolor=wo(0.12, color),
-                    border_radius=ft.BorderRadius.all(8),
+                    border_radius=ft.border_radius.all(8),
                     alignment=ft.Alignment(0, 0),
                 ),
                 ft.Column([
@@ -301,7 +301,7 @@ def home_page(page=None):
             ], spacing=12, vertical_alignment=ft.CrossAxisAlignment.START),
             bgcolor=wo(0.04, color),
             border=ft.Border.all(1, wo(0.2, color)),
-            border_radius=ft.BorderRadius.all(10),
+            border_radius=ft.border_radius.all(10),
             padding=ft.Padding.symmetric(horizontal=12, vertical=10),
             animate=ft.Animation(300, ft.AnimationCurve.EASE_OUT),
         )
@@ -352,7 +352,7 @@ def timeline_page(page=None):
                     width=36, height=36,
                     bgcolor=wo(0.14, color),
                     border=ft.Border.all(1, wo(0.45, color)),
-                    border_radius=ft.BorderRadius.all(18),
+                    border_radius=ft.border_radius.all(18),
                     alignment=ft.Alignment(0, 0),
                     animate=ft.Animation(400, ft.AnimationCurve.BOUNCE_OUT),
                 ),
@@ -370,7 +370,7 @@ def timeline_page(page=None):
                 ], spacing=0),
                 expand=True,
                 bgcolor=wo(0.05, color),
-                border_radius=ft.BorderRadius.all(10),
+                border_radius=ft.border_radius.all(10),
                 padding=ft.Padding.symmetric(horizontal=14, vertical=12),
                 border=ft.Border.all(1, wo(0.2, color)),
                 margin=ft.Margin.only(bottom=4),
@@ -408,7 +408,7 @@ def matlab_page(open_lightbox=None, page=None):
 
     progress_fill = ft.Container(
         expand=0, height=8, bgcolor=SUCCESS,
-        border_radius=ft.BorderRadius.only(top_left=4, bottom_left=4,
+        border_radius=ft.border_radius.only(top_left=4, bottom_left=4,
                                            top_right=4 if pct==100 else 0,
                                            bottom_right=4 if pct==100 else 0),
         animate=ft.Animation(900, ft.AnimationCurve.EASE_OUT),
@@ -431,7 +431,7 @@ def matlab_page(open_lightbox=None, page=None):
                                     weight=ft.FontWeight.BOLD),
                     width=32, height=32,
                     bgcolor=wo(0.15, c),
-                    border_radius=ft.BorderRadius.all(16),
+                    border_radius=ft.border_radius.all(16),
                     alignment=ft.Alignment(0, 0),
                     animate=ft.Animation(400, ft.AnimationCurve.BOUNCE_OUT),
                 ),
@@ -443,7 +443,7 @@ def matlab_page(open_lightbox=None, page=None):
                 chip("DONE" if done else "TODO", c),
             ], spacing=10, vertical_alignment=ft.CrossAxisAlignment.CENTER),
             bgcolor=wo(0.05, c),
-            border_radius=ft.BorderRadius.all(8),
+            border_radius=ft.border_radius.all(8),
             padding=ft.Padding.symmetric(horizontal=12, vertical=10),
             border=ft.Border.all(1, wo(0.25, c)),
             animate=ft.Animation(300, ft.AnimationCurve.EASE_OUT),
@@ -467,7 +467,7 @@ def matlab_page(open_lightbox=None, page=None):
                         ft.Container(
                             content=ft.Image(
                                 src=asset, width=176, height=140, fit="cover",
-                                border_radius=ft.BorderRadius.all(8),
+                                border_radius=ft.border_radius.all(8),
                                 error_content=ft.Container(
                                     content=ft.Column([
                                         ft.Text("🏅", size=32),
@@ -476,7 +476,7 @@ def matlab_page(open_lightbox=None, page=None):
                                     ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=6),
                                     width=176, height=140,
                                     bgcolor=wo(0.08, c),
-                                    border_radius=ft.BorderRadius.all(8),
+                                    border_radius=ft.border_radius.all(8),
                                     alignment=ft.Alignment(0, 0),
                                 ),
                             ),
@@ -485,7 +485,7 @@ def matlab_page(open_lightbox=None, page=None):
                             content=ft.Text("🔍", size=14),
                             right=6, top=6,
                             bgcolor=wo(0.55, BG),
-                            border_radius=ft.BorderRadius.all(6),
+                            border_radius=ft.border_radius.all(6),
                             padding=ft.Padding.all(3),
                             visible=done,
                         ),
@@ -500,7 +500,7 @@ def matlab_page(open_lightbox=None, page=None):
             width=184,
             bgcolor=wo(0.04, c),
             border=ft.Border.all(2, wo(0.5, c) if done else wo(0.15, c)),
-            border_radius=ft.BorderRadius.all(10),
+            border_radius=ft.border_radius.all(10),
             padding=ft.Padding.all(4),
             animate=ft.Animation(300, ft.AnimationCurve.EASE_OUT),
         )
@@ -524,7 +524,7 @@ def matlab_page(open_lightbox=None, page=None):
                     progress_fill,
                     ft.Container(expand=100 - pct, height=8),
                 ], spacing=0),
-                bgcolor=BORDER, border_radius=ft.BorderRadius.all(4),
+                bgcolor=BORDER, border_radius=ft.border_radius.all(4),
                 height=8, clip_behavior=ft.ClipBehavior.HARD_EDGE,
             ),
             ft.Container(height=6),
@@ -620,7 +620,7 @@ def build_video_player(color):
         )
         video_widget = ft.Container(
             content=player,
-            border_radius=ft.BorderRadius.all(8),
+            border_radius=ft.border_radius.all(8),
             clip_behavior=ft.ClipBehavior.HARD_EDGE,
             bgcolor=BG,
         )
@@ -636,7 +636,7 @@ def build_video_player(color):
             ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=8),
             width=float("inf"), height=180,
             bgcolor=wo(0.08, color),
-            border_radius=ft.BorderRadius.all(8),
+            border_radius=ft.border_radius.all(8),
             alignment=ft.Alignment(0, 0),
         )
 
@@ -647,7 +647,7 @@ def build_video_player(color):
                     content=ft.Text("▶", size=10, color=color,
                                     weight=ft.FontWeight.W_700, font_family="monospace"),
                     bgcolor=wo(0.14, color),
-                    border_radius=ft.BorderRadius.all(4),
+                    border_radius=ft.border_radius.all(4),
                     padding=ft.Padding.symmetric(horizontal=8, vertical=3),
                     border=ft.Border.all(1, wo(0.4, color)),
                 ),
@@ -665,7 +665,7 @@ def build_video_player(color):
         ], spacing=0),
         bgcolor=wo(0.05, color),
         border=ft.Border.all(1, wo(0.25, color)),
-        border_radius=ft.BorderRadius.all(8),
+        border_radius=ft.border_radius.all(8),
         padding=ft.Padding.symmetric(horizontal=12, vertical=12),
     )
 
@@ -699,7 +699,7 @@ def blog_page(page=None):
                 ft.Container(
                     content=ft.Text(p["date"], size=9, color=color,
                                     weight=ft.FontWeight.W_700, font_family="monospace"),
-                    bgcolor=wo(0.12, color), border_radius=ft.BorderRadius.all(4),
+                    bgcolor=wo(0.12, color), border_radius=ft.border_radius.all(4),
                     padding=ft.Padding.symmetric(horizontal=8, vertical=3),
                 ),
                 ft.Row([chip(t, color) for t in p["tags"]], spacing=4, wrap=True),
@@ -762,7 +762,7 @@ def github_page(open_lightbox=None, page=None):
                 ft.Text(week, size=10, color=MUTED),
             ], spacing=8),
             bgcolor=wo(0.04, color),
-            border_radius=ft.BorderRadius.all(6),
+            border_radius=ft.border_radius.all(6),
             padding=ft.Padding.symmetric(horizontal=10, vertical=8),
             border=ft.Border.all(1, wo(0.15, color)),
             animate=ft.Animation(300, ft.AnimationCurve.EASE_OUT),
@@ -780,7 +780,7 @@ def github_page(open_lightbox=None, page=None):
                 chip(status, color),
             ], spacing=6),
             bgcolor=wo(0.04, color),
-            border_radius=ft.BorderRadius.all(6),
+            border_radius=ft.border_radius.all(6),
             padding=ft.Padding.symmetric(horizontal=10, vertical=8),
             border=ft.Border.all(1, wo(0.15, color)),
             animate=ft.Animation(300, ft.AnimationCurve.EASE_OUT),
@@ -807,7 +807,7 @@ def github_page(open_lightbox=None, page=None):
                         src="github/git.png",
                         width=float("inf"), height=200,
                         fit="contain",
-                        border_radius=ft.BorderRadius.all(8),
+                        border_radius=ft.border_radius.all(8),
                         error_content=ft.Container(
                             content=ft.Column([
                                 ft.Text("🖼️", size=36),
@@ -818,19 +818,19 @@ def github_page(open_lightbox=None, page=None):
                             ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=6),
                             width=float("inf"), height=200,
                             bgcolor=wo(0.06, ACCENT),
-                            border_radius=ft.BorderRadius.all(8),
+                            border_radius=ft.border_radius.all(8),
                             border=ft.Border.all(1, wo(0.2, ACCENT)),
                             alignment=ft.Alignment(0, 0),
                         ),
                     ),
-                    border_radius=ft.BorderRadius.all(8),
+                    border_radius=ft.border_radius.all(8),
                     clip_behavior=ft.ClipBehavior.HARD_EDGE,
                 ),
                 ft.Container(
                     content=ft.Text("🔍", size=14),
                     right=8, top=8,
                     bgcolor=wo(0.65, BG),
-                    border_radius=ft.BorderRadius.all(6),
+                    border_radius=ft.border_radius.all(6),
                     padding=ft.Padding.all(4),
                 ),
             ]),
@@ -884,7 +884,7 @@ def github_page(open_lightbox=None, page=None):
             ft.Container(
                 content=ft.Text(IMPACT, size=11, color=wo(0.9, TEXT), font_family="monospace"),
                 bgcolor=wo(0.05, SUCCESS),
-                border_radius=ft.BorderRadius.all(8),
+                border_radius=ft.border_radius.all(8),
                 padding=ft.Padding.all(14),
                 border=ft.Border.all(1, wo(0.25, SUCCESS)),
             ),
@@ -923,7 +923,7 @@ def main(page: ft.Page):
                         content=ft.Container(
                             content=ft.Text("✕", size=18, color=TEXT),
                             bgcolor=wo(0.2, ACCENT2),
-                            border_radius=ft.BorderRadius.all(8),
+                            border_radius=ft.border_radius.all(8),
                             padding=ft.Padding.symmetric(horizontal=12, vertical=6),
                         ),
                     ),
@@ -998,12 +998,12 @@ def main(page: ft.Page):
                             ft.Container(
                                 width=4, height=4,
                                 bgcolor=ACCENT if is_active else "transparent",
-                                border_radius=ft.BorderRadius.all(2),
+                                border_radius=ft.border_radius.all(2),
                                 animate=ft.Animation(300, ft.AnimationCurve.EASE_OUT),
                             ),
                         ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=2),
                         bgcolor=wo(0.14, ACCENT) if is_active else "transparent",
-                        border_radius=ft.BorderRadius.all(8),
+                        border_radius=ft.border_radius.all(8),
                         padding=ft.Padding.symmetric(horizontal=12, vertical=7),
                         border=ft.Border.all(1, wo(0.35, ACCENT) if is_active
                                               else "transparent"),
@@ -1040,14 +1040,9 @@ def main(page: ft.Page):
     navigate("Home")
 
 
-# ── ENTRY POINT (Works on both local and Render) ────────────────────────────
+# ── ENTRY POINT ──────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     # Render sets PORT environment variable, fallback to 8080
     port = int(os.environ.get("PORT", 8080))
-    
-    # Works with both Flet 0.23 (Render) and 0.80+ (local)
-    try:
-        ft.run(target=main, port=port, assets_dir="assets")
-    except AttributeError:
-        ft.app(target=main, port=port, assets_dir="assets")
+    ft.app(target=main, port=port, assets_dir="assets")
