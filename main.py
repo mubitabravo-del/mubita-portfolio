@@ -1,12 +1,21 @@
 """
 Web Portfolio - Computer Programming I (Semester 1, 2026)
 Flet 0.85 compatible — with animations & styling polish
+RENDER DEPLOYMENT READY
 """
 
 import flet as ft
 import flet_video as fv
 import threading
 import time
+import os
+import sys
+
+# ── Fix asset paths for Render ──────────────────────────────────────────────
+def get_asset_path(filename):
+    """Get correct asset path for both local and Render deployment"""
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base_dir, "assets", filename)
 
 # ── Design Tokens ────────────────────────────────────────────────────────────
 BG      = "#08090D"
@@ -378,14 +387,14 @@ def timeline_page(page=None):
 # ── MATLAB PAGE ───────────────────────────────────────────────────────────────
 
 MATLAB_COURSES = [
-    ("MATLAB Onramp",            True,  "Core syntax, variables, scripts, and basic plotting",   "matlab/cert_matlab_onramp.png",    ACCENT),
-    ("Calculation with Vectors", True,  "Vector operations, indexing, and array mathematics",    "matlab/CalculationwithVectors.png", BLUE),
-    ("Machine Learning Onramp",  True,  "Classification, regression, and model evaluation",      "matlab/machineLearning.png",       SUCCESS),
-    ("Explore Data",             True,  "Data import, cleaning, and exploratory analysis",       "matlab/ExploreData.png",           PURPLE),
-    ("Finite Element",           True,  "FEA fundamentals and structural simulation",            "matlab/FiniteElement.png",         ACCENT2),
-    ("How and Why",              True,  "Engineering reasoning and problem-solving techniques",  "matlab/HowandWhy.png",             ACCENT3),
-    ("Simulink Onramp",          True,  "Model-based design, block diagrams, simulation",        "matlab/simulinkOnramp.png",        PURPLE),
-    ("MATLAB Onramp (Extended)", False, "Advanced scripting, functions, and file I/O",           "matlab/matlabOnramp.png",          MUTED),
+    ("MATLAB Onramp",            True,  "Core syntax, variables, scripts, and basic plotting",   get_asset_path("matlab/cert_matlab_onramp.png"),    ACCENT),
+    ("Calculation with Vectors", True,  "Vector operations, indexing, and array mathematics",    get_asset_path("matlab/CalculationwithVectors.png"), BLUE),
+    ("Machine Learning Onramp",  True,  "Classification, regression, and model evaluation",      get_asset_path("matlab/machineLearning.png"),       SUCCESS),
+    ("Explore Data",             True,  "Data import, cleaning, and exploratory analysis",       get_asset_path("matlab/ExploreData.png"),           PURPLE),
+    ("Finite Element",           True,  "FEA fundamentals and structural simulation",            get_asset_path("matlab/FiniteElement.png"),         ACCENT2),
+    ("How and Why",              True,  "Engineering reasoning and problem-solving techniques",  get_asset_path("matlab/HowandWhy.png"),             ACCENT3),
+    ("Simulink Onramp",          True,  "Model-based design, block diagrams, simulation",        get_asset_path("matlab/simulinkOnramp.png"),        PURPLE),
+    ("MATLAB Onramp (Extended)", False, "Advanced scripting, functions, and file I/O",           get_asset_path("matlab/matlabOnramp.png"),          MUTED),
 ]
 
 def matlab_page(open_lightbox=None, page=None):
@@ -543,7 +552,7 @@ def matlab_page(open_lightbox=None, page=None):
 
 # ── BLOG PAGE ─────────────────────────────────────────────────────────────────
 
-DEMO_VIDEO_SRC = "video/video_2026-06-15_14-52-22.mp4"
+DEMO_VIDEO_SRC = get_asset_path("demo.mp4")
 
 BLOG_POSTS = [
     {
@@ -616,7 +625,7 @@ def build_video_player(color):
             content=ft.Column([
                 ft.Text("▶", size=36, color=color, text_align=ft.TextAlign.CENTER),
                 ft.Text(
-                    f"Video player requires 'flet-video' package\nFile: assets/{DEMO_VIDEO_SRC}\n\nError: {str(e)[:100]}",
+                    f"Video player requires 'flet-video' package\nFile: {DEMO_VIDEO_SRC}\n\nError: {str(e)[:100]}",
                     size=11, color=MUTED, text_align=ft.TextAlign.CENTER,
                 ),
             ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=8),
@@ -773,9 +782,11 @@ def github_page(open_lightbox=None, page=None):
         )
         pr_rows.append(fade_slide_in(row, delay_ms=i * 60, page=page))
 
+    screenshot_path = get_asset_path("commits.png")
+    
     def on_screenshot_tap(e):
         if open_lightbox:
-            open_lightbox("github/git.png", "Commit History — GitHub Screenshot")
+            open_lightbox(screenshot_path, "Commit History — GitHub Screenshot")
 
     screenshot_card = card(ft.Column([
         ft.Row([
@@ -790,16 +801,16 @@ def github_page(open_lightbox=None, page=None):
             content=ft.Stack([
                 ft.Container(
                     content=ft.Image(
-                        src="github/git.png",
+                        src=screenshot_path,
                         width=float("inf"), height=200,
                         fit="contain",
                         border_radius=ft.BorderRadius.all(8),
                         error_content=ft.Container(
                             content=ft.Column([
                                 ft.Text("🖼️", size=36),
-                                ft.Text("git.png not found", size=11, color=MUTED,
+                                ft.Text("commits.png not found", size=11, color=MUTED,
                                         text_align=ft.TextAlign.CENTER),
-                                ft.Text("Place at assets/github/git.png", size=9,
+                                ft.Text("Place at assets/commits.png", size=9,
                                         color=wo(0.5, MUTED), text_align=ft.TextAlign.CENTER),
                             ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=6),
                             width=float("inf"), height=200,
@@ -887,8 +898,10 @@ def main(page: ft.Page):
     page.bgcolor    = BG
     page.padding    = 0
     page.theme_mode = ft.ThemeMode.DARK
-    page.window_width  = 430
-    page.window_height = 900
+    
+    # Render uses port 10000 by default, but we'll let flet handle it
+    # Don't set fixed window size for web deployment
+    
     page.fonts = {}
 
     # Lightbox
@@ -1027,4 +1040,6 @@ def main(page: ft.Page):
 
 
 if __name__ == "__main__":
-    ft.run(main, view=ft.AppView.WEB_BROWSER, port=8080, assets_dir="assets")
+    # Render sets PORT environment variable, fallback to 8080
+    port = int(os.environ.get("PORT", 8080))
+    ft.run(main, view=ft.AppView.WEB_BROWSER, port=port, assets_dir="assets")
